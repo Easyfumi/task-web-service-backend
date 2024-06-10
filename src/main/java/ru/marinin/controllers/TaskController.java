@@ -8,6 +8,8 @@ import ru.marinin.dto.TaskDto;
 import ru.marinin.repository.TaskRepository;
 import ru.marinin.service.impl.TaskServiceImpl;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("api/v1/tasks")
@@ -19,14 +21,20 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto taskDto) {
-        TaskDto savedTask = taskService.createTask(taskDto);
+        var savedTask = taskService.createTask(taskDto);
         return new ResponseEntity<>(savedTask,
                 HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<TaskDto> getTaskById(@PathVariable("id") Long taskId) {
-        TaskDto taskDto = taskService.getTaskById(taskId);
+        var taskDto = taskService.getTaskById(taskId);
         return ResponseEntity.ok(taskDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TaskDto>> getAllTasks() {
+        var list = taskService.getAllTasks();
+        return ResponseEntity.ok(list);
     }
 }

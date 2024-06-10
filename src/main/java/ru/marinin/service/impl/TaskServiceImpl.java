@@ -9,6 +9,9 @@ import ru.marinin.models.Task;
 import ru.marinin.repository.TaskRepository;
 import ru.marinin.service.TaskService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
@@ -29,4 +32,13 @@ public class TaskServiceImpl implements TaskService {
                         new ResourceNotFoundException("Task is not exists with given id: " + taskId));
         return TaskMapper.mapToTaskDto(task);
     }
+
+    @Override
+    public List<TaskDto> getAllTasks() {
+        List<Task> taskList = taskRepository.findAll();
+        return taskList.stream()
+                .map(TaskMapper::mapToTaskDto)
+                .toList();
+    }
+
 }
