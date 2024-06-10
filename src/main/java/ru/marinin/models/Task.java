@@ -11,18 +11,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "tasks")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(nullable = false)
+    private String nameOfTask;
+
     private String description;
+
+    @Column(nullable = false)
     private LocalDateTime dateTime;
-    private LocalDateTime dateOfCreated;
 
+    @Column(nullable = false)
+    private String email;
 
-    @PrePersist
-    private void init() {
-        dateOfCreated = LocalDateTime.now();
-    }
 
 }
