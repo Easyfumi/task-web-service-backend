@@ -1,6 +1,7 @@
 package ru.marinin.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.Update;
 import org.springframework.stereotype.Service;
 import ru.marinin.dto.TaskDto;
 import ru.marinin.exception.ResourceNotFoundException;
@@ -41,4 +42,14 @@ public class TaskServiceImpl implements TaskService {
                 .toList();
     }
 
+    @Override
+    public TaskDto updateTask(Long taskId, TaskDto updatedTaskDto) {
+        Task task = taskRepository.findById(taskId).orElseThrow(
+                () -> new ResourceNotFoundException("Task is not exist with given id: " + taskId)
+        );
+        Task updatedTask = TaskMapper.mapToTask(updatedTaskDto);
+        updatedTask.setId(task.getId());
+        updatedTask = taskRepository.save(updatedTask);
+        return TaskMapper.mapToTaskDto(updatedTask);
+    }
 }
