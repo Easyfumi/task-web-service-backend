@@ -44,4 +44,9 @@ public class TaskController {
         TaskDto taskDto = taskService.updateTask(taskId, updatedTaskDto);
         return ResponseEntity.ok(taskDto);
     }
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> removeTask(@PathVariable("id") Long taskId) {
+        taskService.removeTask(taskId);
+        return ResponseEntity.ok("Employee deleted successfully");
+    }
 }
