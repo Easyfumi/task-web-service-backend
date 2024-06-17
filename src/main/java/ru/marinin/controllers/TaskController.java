@@ -10,7 +10,7 @@ import ru.marinin.service.impl.TaskServiceImpl;
 
 import java.util.List;
 
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("api/v1/tasks")
 @RequiredArgsConstructor
